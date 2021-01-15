@@ -249,7 +249,9 @@ class TaskInfoDiscoverer:
 
     def get_infos_for_cluster(self, cluster_arn, launch_type):
         tasks_pages = self.ecs_client.get_paginator("list_tasks").paginate(
-            cluster=cluster_arn, launchType=launch_type
+            cluster=cluster_arn,
+            launchType=launch_type,
+            desiredStatus="RUNNING",
         )
         task_infos = []
         for task_arns in tasks_pages:
